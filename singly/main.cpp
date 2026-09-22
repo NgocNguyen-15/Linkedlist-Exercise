@@ -88,6 +88,25 @@ void deleteAtLast(Node* &head){
     free(lastNode);
 }
 
+void deleteAtMiddle(Node* &head, int position){
+    if(head == NULL){
+        return;
+    }
+    if(position ==1){
+        deleteAtStart(head);
+        return;
+    } 
+    Node *prev = head;
+    int count = 1;
+    while(count<(position-1)){
+        prev=prev->next;
+        count++;
+    }
+    Node* curr = prev->next;
+    prev->next = curr->next;
+    free(curr);
+}
+
 int main(){
     Node* node1 = new Node(1);
     Node* node2 = new Node(2);
@@ -103,6 +122,8 @@ int main(){
     deleteAtStart(head);
     traverse(head);
     deleteAtLast(head);
+    traverse(head);
+    deleteAtMiddle(head, 2);
     traverse(head);
     return 0;
 }
