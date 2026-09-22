@@ -44,6 +44,23 @@ void insertAtEnd(Node* &head, int val){
     temp->next = newNode;
 }
 
+void insertAtMiddle(Node* &head, int val, int position){
+
+    if(position == 1){
+        insertAtHead(head, val);
+        return;
+    }
+    Node* newNode = new Node(val);
+    Node* prev = head;
+    int count = 1;
+    while(count < (position - 1)){
+        prev = prev->next;
+        count++;
+    }
+    newNode->next = prev->next;
+    prev->next = newNode;
+}
+
 int main(){
     Node* node1 = new Node(1);
     Node* node2 = new Node(2);
@@ -53,6 +70,8 @@ int main(){
     insertAtHead(head, 3);
     traverse(head);
     insertAtEnd(head, 4);
+    traverse(head);
+    insertAtMiddle(head, 5, 3);
     traverse(head);
     return 0;
 }
