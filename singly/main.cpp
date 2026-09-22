@@ -32,6 +32,18 @@ void insertAtHead(Node* &head, int val){
     head = newNode;
 }
 
+void insertAtEnd(Node* &head, int val){
+    if(head == NULL){
+        insertAtHead(head, val);
+    }
+    Node* newNode = new Node(val);
+    Node* temp = head;
+    while(temp->next != NULL){
+        temp = temp->next;
+    }
+    temp->next = newNode;
+}
+
 int main(){
     Node* node1 = new Node(1);
     Node* node2 = new Node(2);
@@ -40,4 +52,7 @@ int main(){
     traverse(head);
     insertAtHead(head, 3);
     traverse(head);
+    insertAtEnd(head, 4);
+    traverse(head);
+    return 0;
 }
