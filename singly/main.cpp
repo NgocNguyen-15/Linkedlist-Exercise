@@ -107,6 +107,16 @@ void deleteAtMiddle(Node* &head, int position){
     free(curr);
 }
 
+void updateNodeValue(Node* &head, int k, int updateValue){
+    Node* temp = head;
+    int count = 1;
+    while(count < k){
+        temp = temp->next;
+        count++;
+    }
+    temp->value = updateValue;
+}
+
 int main(){
     Node* node1 = new Node(1);
     Node* node2 = new Node(2);
@@ -124,6 +134,8 @@ int main(){
     deleteAtLast(head);
     traverse(head);
     deleteAtMiddle(head, 2);
+    traverse(head);
+    updateNodeValue(head, 1, 8);
     traverse(head);
     return 0;
 }
