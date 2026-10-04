@@ -184,9 +184,6 @@ int main(){
     insertAtEnd(head1, 5);
     traverse(head1);
 
-    moveRightbyk(head1, 2);
-    traverse(head1);
-
     Node*head2 = NULL;
     insertAtEnd(head2, 1);
     insertAtEnd(head2, 2);
@@ -195,18 +192,7 @@ int main(){
     insertAtEnd(head2, 8);
     traverse(head2);
 
-    cout<<checkEqual(head1, head2)<<endl; 
-    
-    Node*head = NULL;
-    insertAtEnd(head, 1);
-    insertAtEnd(head, 2);
-    insertAtEnd(head, 3);
-    insertAtEnd(head, 2);
-    insertAtEnd(head, 1);
-    reverseList(head);
-    traverse(head);
-
-    cout << checkPalindrome(head) <<endl;
+    traverse(mergeLL(head1, head2));
 
      
     return 0;
