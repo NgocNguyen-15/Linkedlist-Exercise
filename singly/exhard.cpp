@@ -62,7 +62,7 @@ Node* moveKSteps(Node* head, int k){
     return ptr;
 }
 
-Node* getIntersectionNode(Node* &head1, Node* &head2){
+Node* getIntersectionNode(Node* head1, Node* head2){
     int l1 = getLength(head1);
     int l2 = getLength(head2);
 
@@ -86,6 +86,36 @@ Node* getIntersectionNode(Node* &head1, Node* &head2){
     return NULL;
 }
 
+
+/*
+Given the head of a linked list, reverse the nodes of the list k at a time, and return the modified list.
+Input:
+n = 5
+k = 2
+List = 1→2→3→4→5
+Output:
+2→1→4→3→5
+*/
+Node* reverseKLL(Node* &head, int k){
+    Node* prev = NULL;
+    Node* curr = head;
+    Node* aft = head->next;
+    int count = 0;
+    while(curr&&count<k){
+        aft = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = aft;
+        count++;
+    }
+    if(curr){
+        Node* newHead = reverseKLL(curr, k);
+        head->next = newHead;
+    }
+    return prev;
+
+}
+
 int main(){
     Node* head1 = NULL;
     insertAtEnd (head1, 1); 
@@ -107,5 +137,15 @@ int main(){
     else{
         cout<< "No intersection point"<<endl;
     }
+
+    Node* head = NULL;
+    insertAtEnd (head, 1); 
+    insertAtEnd (head, 2); 
+    insertAtEnd (head, 3); 
+    insertAtEnd (head, 4);
+    insertAtEnd (head, 5); 
+    traverse (head);
+    traverse(reverseKLL(head, 3));
+
     return 0;
 }
