@@ -116,36 +116,72 @@ Node* reverseKLL(Node* &head, int k){
 
 }
 
+/*
+Given the head of a linked list, detect if the linked list has cycle in it. If it does, break the cycle.
+Input:
+1→2→3→4→5
+    |___|
+Output:
+Yes
+1→2→3→4→5
+*/
+bool detectCycle(Node* head){
+    Node* slow = head;
+    Node* fast = head;
+    while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+        if(slow == fast){
+            return true;
+        }
+    }
+    return false;
+}
+
+void removeCycle(Node* &head){
+    Node* slow = head;
+    Node* fast = head;
+
+    do {
+        slow = slow->next;
+        fast = fast->next->next;
+    } while (slow != fast);
+    // Nếu fast chạy đến cuối -> Danh sách KHÔNG có vòng lặp -> Dừng
+    if (fast == NULL || fast->next == NULL) return;
+    cout<<fast->value<<endl;
+    fast = head;
+    // Trường hợp đặc biệt: Vòng lặp bắt đầu ngay tại Node head
+    if (slow == fast) {
+        while (fast->next != slow) {
+            fast = fast->next;
+        }
+        fast->next = NULL;
+        return;
+    }
+    while(slow->next!=fast->next) {
+        slow=slow->next; 
+        fast=fast->next;
+    }
+    slow->next = NULL;
+}
+
 int main(){
-    Node* head1 = NULL;
-    insertAtEnd (head1, 1); 
-    insertAtEnd (head1, 2); 
-    insertAtEnd (head1, 3); 
-    insertAtEnd (head1, 4); 
-    traverse (head1);
-
-    Node* head2 = NULL;
-    insertAtEnd(head2, 6);
-    insertAtEnd(head2, 5);
-    head2->next->next = head1->next->next;
-    traverse(head2);
-
-    Node* intersection = getIntersectionNode(head1, head2);
-    if(intersection){
-        cout<<intersection->value<<endl;
-    }
-    else{
-        cout<< "No intersection point"<<endl;
-    }
-
     Node* head = NULL;
     insertAtEnd (head, 1); 
     insertAtEnd (head, 2); 
     insertAtEnd (head, 3); 
     insertAtEnd (head, 4);
     insertAtEnd (head, 5); 
-    traverse (head);
-    traverse(reverseKLL(head, 3));
+    head->next->next->next->next->next = head->next->next;
+    cout<< detectCycle(head)<<endl;
+    if(detectCycle(head)){
+        removeCycle(head);
+        traverse(head);
+    }
+    else{
+        cout<<"No cycle"<<endl;
+    }
+
 
     return 0;
 }
