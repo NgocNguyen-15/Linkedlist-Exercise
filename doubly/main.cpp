@@ -23,6 +23,10 @@ void forwardTraversal(Node* head){
 }
 
 void backwardTraversal(Node* head){
+    if (head == NULL) {
+        cout << "NULL" << endl;
+        return;
+    }
     Node* temp = head;
     while(temp->next){
         temp = temp->next;
@@ -34,6 +38,50 @@ void backwardTraversal(Node* head){
     cout<<"NULL"<<endl;
 }
 
+void insertAtStart(Node* &head, int v){
+    Node* newNode = new Node(v);
+    if(head == NULL){
+        head = newNode;
+        return;
+    }
+    newNode->next = head;
+    head->prev = newNode;
+    head = newNode;
+}
+void insertAtEnd(Node* &head, int v){
+    Node* newNode = new Node(v);
+    if(head == NULL){
+        head = newNode;
+        return;
+    }
+    Node* temp = head;
+    while(temp->next){
+        temp= temp->next;
+    }
+    newNode->prev = temp;
+    temp->next = newNode;
+    newNode->next = NULL;
+}
+void insertAtMiddle(Node* &head, int v, int k){
+    if(k<=1|| head==NULL){
+        insertAtStart(head, v);
+        return;
+    }
+    Node* newNode = new Node(v);
+    Node* back = head;
+    int count = 1;
+    while(count < k-1 && back->next != NULL){
+        back = back->next;
+        count++;
+    }
+    newNode->next = back->next;
+    newNode->prev = back;
+    if (back->next != NULL) {
+        back->next->prev = newNode;
+    }
+    back->next = newNode;
+}
+
 int main(){
     Node* n1 = new Node(1);
     Node* n2 = new Node(2);
@@ -42,5 +90,7 @@ int main(){
     Node* head = n1;
     forwardTraversal(head);
     backwardTraversal(head);
+    insertAtStart(head, 9);
+    forwardTraversal(head);
     return 0;
 }
