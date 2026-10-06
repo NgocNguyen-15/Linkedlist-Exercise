@@ -118,6 +118,20 @@ void deleteAtMiddle(Node* &head, int k){
     delete delNode;
 }
 
+
+void reverseDLL(Node* &head){
+    Node* currptr = head;
+    Node* prevptr;
+    while(currptr) {
+        prevptr = currptr->prev;
+        currptr->prev = currptr->next;
+        currptr->next = prevptr;
+        currptr = currptr->prev;
+    }
+    head = prevptr->prev;
+}
+
+
 int main(){
     Node* n1 = new Node(1);
     Node* n2 = new Node(2);
